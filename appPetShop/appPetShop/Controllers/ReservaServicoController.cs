@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using appPetShop.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace appPetShop.Controllers
 {
+    [Authorize]
     public class ReservaServicoController : Controller
     {
         private readonly DbPetShopContext _context;
