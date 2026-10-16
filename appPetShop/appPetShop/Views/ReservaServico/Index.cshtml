@@ -1,59 +1,53 @@
 ﻿@model IEnumerable<appPetShop.Models.ReservaServico>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Reservas de Serviços";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DataHora)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Valor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StatusServico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cliente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Veterinario)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataHora)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Valor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StatusServico)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cliente.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Veterinario.Codigo)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Codigo">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Codigo">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Codigo">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+        <h3 class="mb-0 text-primary fw-bold"><i class="bi bi-calendar-check me-2"></i>Reservas de Serviços</h3>
+        <a asp-action="Create" class="btn btn-primary fw-semibold">
+            <i class="bi bi-plus-circle me-1"></i>Nova Reserva
+        </a>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">Data / Hora</th>
+                        <th>Valor</th>
+                        <th>Status</th>
+                        <th>Cliente</th>
+                        <th>Veterinário</th>
+                        <th class="text-end pe-4">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-4 fw-semibold text-dark">
+                                @item.DataHora.ToString("dd/MM/yyyy HH:mm")
+                            </td>
+                            <td>R$ @item.Valor.ToString("N2")</td>
+                            <td>
+                                <span class="badge bg-info text-dark">@Html.DisplayFor(modelItem => item.StatusServico)</span>
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.Cliente.Nome)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Veterinario.Nome)</td>
+                            <td class="text-end pe-4">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a asp-action="Edit" asp-route-id="@item.Codigo" class="btn btn-outline-warning" title="Editar"><i class="bi bi-pencil"></i></a>
+                                    <a asp-action="Details" asp-route-id="@item.Codigo" class="btn btn-outline-info" title="Detalhes"><i class="bi bi-eye"></i></a>
+                                    <a asp-action="Delete" asp-route-id="@item.Codigo" class="btn btn-outline-danger" title="Excluir"><i class="bi bi-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
